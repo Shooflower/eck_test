@@ -3,7 +3,7 @@ node {
         withCredentials([usernameColonPassword(credentialsId: 'es-creds', variable: 'AUTHORIZATION')]){
             steps {
                 echo 'Hello, ES'
-                sh 'curl https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure -H 'Authorization: Basic amVua2luczpwYXNzdzByZA==''
+                sh 'curl https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure -H "Authorization: Basic amVua2luczpwYXNzdzByZA=="'
             }
         }
     }
