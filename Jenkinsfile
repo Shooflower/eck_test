@@ -1,11 +1,12 @@
 pipeline {
-    agent none 
+    agent none
     stages {
-        stage('Example Build') {
-            agent { docker 'elasticsearch:8.1.2' } 
-            steps {
-                echo 'Hello, ES'
-                sh 'curl -XGET "localhost:9092"'
+        stage('Curl to ES') {
+            withCredentials([usernameColonPassword(credentialsId: 'es-creds', variable: 'AUTHORIZATION')]){
+                steps {
+                    echo 'Hello, ES'
+                    sh 'curl https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure -H "Authorization: Basic $AUTHORIZATION"'
+                }
             }
         }
         stage('Finish Building') {
