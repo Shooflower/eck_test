@@ -1,28 +1,17 @@
-podTemplate(yaml: '''
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      labels:
-        label: elastic
-    spec:
-      serviceAccountName: default
-      containers:
-      - name: elasticsearch
-        image: elasticsearch:8.1.2
-
-'''){
-    node (POD_LABEL) {
-
-        stage("Checkout Source"){
-            checkout scm
+pipeline {
+    agent none 
+    stages {
+        stage('Example Build') {
+            agent { docker 'elasticsearch:8.1.2' } 
+            steps {
+                echo 'Hello, ES'
+                sh 'curl -XGET "localhost:9092"'
+            }
         }
-
-        stage ('Build') {
-            sh 'echo Creating ES container'
-            container(elasticsearch){
-                sh 'pwd'
+        stage('Finish Building') {
+            steps {
+                echo 'Build Complete'
             }
         }
     }
 }
-
