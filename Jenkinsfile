@@ -5,10 +5,10 @@ podTemplate(yaml: '''
       labels:
         label: elastic
     spec:
-      serviceAccountName: jenkins
+      serviceAccountName: default
       containers:
       - name: elasticsearch
-        image: docker.artifactory.csx.com/elasticsearch:6.4.3
+        image: elasticsearch:8.1.2
 
 '''){
     node (POD_LABEL) {
@@ -25,3 +25,4 @@ podTemplate(yaml: '''
         }
     }
 }
+
