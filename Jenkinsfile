@@ -1,9 +1,9 @@
 node {
     stage('Curl to ES') {
-        withCredentials([usernameColonPassword(credentialsId: 'es-creds', variable: 'AUTHORIZATION')]){
+        withCredentials([usernamePassword(credentialsId: 'es-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             steps {
                 echo 'Hello, ES'
-                sh 'curl https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure -H "Authorization: Basic amVua2luczpwYXNzdzByZA=="'
+                sh "curl https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure -u ${USERNAME}:${PASSWORD}"
             }
         }
     }
