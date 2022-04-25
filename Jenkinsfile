@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Test ES GET') {
             steps {
-                sh('curl -u $ES_CREDS_USR:$ES_CREDS_PSW https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure')
+                sh('/usr/bin/curl -u $ES_CREDS_USR:$ES_CREDS_PSW https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure')
             }
         }
         stage("Build Complete"){
