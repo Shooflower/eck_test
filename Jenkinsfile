@@ -1,12 +1,18 @@
-node {
-    stage('Curl to ES') {
-        withCredentials([usernamePassword(credentialsId: 'es-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh 'curl https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure -u ${USERNAME}:${PASSWORD}'
-        }
+pipeline {
+    agent any
+    environment {
+        ES_CREDS = credentials('es-creds')
     }
-    stage('Finish Building') {
-        steps {
-            echo 'Build Complete'
+    stages {
+        stage('Test ES GET') {
+            steps {
+                sh('curl -u $ES_CREDS_USR:$ES_CREDS_PSW https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure')
+            }
+        }
+        stage("Build Complete"){
+            steps {
+                sh('echo COMPLETED BUILD!')
+            }
         }
     }
 }
