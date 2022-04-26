@@ -8,7 +8,7 @@ podTemplate(
 ) {
     node('myPod'){
         stage('Test Curl'){
-            container('linux'){
+            container('centos'){
                 sh 'curl -XGET https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure'
             }
         }
