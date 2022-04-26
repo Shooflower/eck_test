@@ -17,7 +17,7 @@ podTemplate(yaml: '''
     node(POD_LABEL){
         stage('Test Curl'){
             container('elasticsearch'){
-                sh 'curl -XGET http://localhost:9200'
+                sh 'curl -XGET https://localhost:9200 -k'
             }
         }
     }
