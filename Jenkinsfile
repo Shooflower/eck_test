@@ -6,10 +6,7 @@ podTemplate(
             command: 'sleep', 
             args: '99d',
             ports: [
-                {
-                    containerPort: '9200',
-                    protocol: 'TCP'
-                }
+                '9200'
             ]
         )
     ]
