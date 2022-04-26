@@ -8,7 +8,8 @@ podTemplate(
     node(POD_LABEL){
         stage('Test Curl'){
             container('centos'){
-                sh 'curl -XGET https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ --insecure'
+                withCredentials([usernameColonPassword(credentialsId: 'es-creds', variable: 'USERPASS')])
+                sh 'curl -XGET https://elasticsearch-cluster-elastic-system.apps.ocpjaxd003.csx.com/ -k -u $USERPASS'
             }
         }
     }
