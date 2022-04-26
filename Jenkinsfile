@@ -1,7 +1,16 @@
 podTemplate(
     containers: [
         containerTemplate(
-            name: 'elasticsearch', image: 'elasticsearch:8.1.3', command: 'sleep', args: '99d'
+            name: 'elasticsearch', 
+            image: 'elasticsearch:8.1.3', 
+            command: 'sleep', 
+            args: '99d',
+            ports: [
+                {
+                    containerPort: '9200',
+                    protocol: 'TCP'
+                }
+            ]
         )
     ]
 ) {
