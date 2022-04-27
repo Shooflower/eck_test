@@ -1,23 +1,16 @@
-podTemplate(yaml: '''
-    apiVersion: v1
-    kind: Pod
-    spec:
-      containers:
-      - name: elasticsearch
-        image: elasticsearch:8.1.3
-        command:
-        - sleep
-        args:
-        - 99d
-        ports:
-        - containerPort: 9200
-          protocol: TCP
-'''
+podTemplate(
+    containers: [
+        containerTemplate(
+            name: 'centos', image: 'centos', command: 'sleep', args: '99d'
+        )
+    ]
 ) {
     node(POD_LABEL){
         stage('Test Curl'){
-            container('elasticsearch'){
-                sh 'curl -XGET https://127.0.0.1:9200 -k'
+            container('centos'){
+                withCredentials([usernameColonPassword(credentialsId: 'es-creds-local', variable: 'USERPASS')]){
+                    sh 'curl -XGET https://localhost:9200 -k -u $USERPASS'
+                }
             }
         }
     }
